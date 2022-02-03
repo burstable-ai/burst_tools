@@ -1,4 +1,6 @@
-import torch
+import sys
+import argparse
+# import torch
 from pynvml import *
 
 nvmlInit()
@@ -9,5 +11,8 @@ def mem(dev=0):
     return info.used, info.free, info.total
 
 if __name__ == "__main__":
-    used, free, tot = mem(0)
-    print (f"{used/tot:.3%} {used:,} bytes out of {tot:,} total; {free:,} free")
+    dev = 0
+    if len(sys.argv) > 1:
+        dev = int(sys.argv[1])
+    used, free, tot = mem(dev)
+    print (f"{used/tot:.3%} {used/1000000:.3f}mb out of {tot/1000000:.3f}mb free: {free/1000000:.3f}mb")
