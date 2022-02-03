@@ -1,6 +1,6 @@
+#!/usr/bin/env python3
 import sys
 import argparse
-# import torch
 from pynvml import *
 
 nvmlInit()
