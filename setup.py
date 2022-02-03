@@ -5,6 +5,6 @@ setup(
     install_requires=[
         "pynvml"
     ],
-    scripts=['bin/burst', 'bin/burst-config', 'bin/burst-monitor'],
+    scripts=['bin/gpumem'],
     python_requires='>=3',
 )
