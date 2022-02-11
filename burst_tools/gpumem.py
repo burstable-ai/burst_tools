@@ -11,6 +11,10 @@ def mem(dev=0):
     info = nvmlDeviceGetMemoryInfo(h)
     return info.used, info.free, info.total
 
+#get # of gpu's
+def gpu_count():
+    return nvmlDeviceGetCount()
+
 #opine on least-used aka best to use
 def least_used():
     devs = nvmlDeviceGetCount()
@@ -26,12 +30,8 @@ def least_used():
 if __name__ == "__main__":
     best, free = least_used()
     print (f"dev {best} has most free memory: {free/1000000:.3f}mb")
-    dev = 0
-    if len(sys.argv) > 1:
-        dev = int(sys.argv[1])
     devs = nvmlDeviceGetCount()
-    if dev >= devs:
-        raise Exception(f"No such device; {devs} devices available")
-    used, free, tot = mem(dev)
-    print (f"stats for device {dev}:")
-    print (f"{used/tot:.3%} {used/1000000:.3f}mb out of {tot/1000000:.3f}mb free: {free/1000000:.3f}mb")
+    print (f"{devs} GPU devices found")
+    for dev in range(devs):
+        used, free, tot = mem(dev)
+        print (f"device: {dev} used: {used/tot:.3%} {used/1000000:.3f}mb out of {tot/1000000:.3f}mb free: {free/1000000:.3f}mb")
